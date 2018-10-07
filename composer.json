@@ -1,0 +1,55 @@
+{
+    "name": "laravel/laravel",
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "php": ">=5.6.4",
+        "darkaonline/l5-swagger": "~4.0",
+        "laravel/framework": "5.4.*",
+        "laravel/tinker": "~1.0",
+        "tymon/jwt-auth": "^0.5.12"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~5.7"
+    },
+    "autoload": {
+        "classmap": [
+            "database"
+        ],
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "php artisan migrate",
+            "php artisan l5-swagger:generate",
+            "php artisan l5-swagger:publish",
+            "php artisan optimize",
+            "npm install"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "php artisan migrate",
+            "php artisan l5-swagger:generate",
+            "php artisan l5-swagger:publish",
+            "php artisan optimize"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}
